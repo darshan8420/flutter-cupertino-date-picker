@@ -60,7 +60,19 @@ class _StringsRu extends _StringsI18n {
 
   @override
   List<String> getMonthsShort() {
-    // TODO: implement getMonthsShort
-    return null;
+    return [
+      "Янв",
+      "Фев",
+      "Мар",
+      "Апр",
+      "Май",
+      "Июн",
+      "Июл",
+      "Авг",
+      "Сен",
+      "Окт",
+      "Ноя",
+      "Дек",
+    ];
   }
 }

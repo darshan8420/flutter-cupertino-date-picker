@@ -34,7 +34,20 @@ class _StringsHr extends _StringsI18n {
 
   @override
   List<String> getMonthsShort() {
-    return null;
+    return [
+      "Sij",
+      "Velj",
+      "Ožu",
+      "Tra",
+      "Svi",
+      "Lip",
+      "Srp",
+      "Kol",
+      "Ruj",
+      "Lis",
+      "Stu",
+      "Pro",
+    ];
   }
 
   @override

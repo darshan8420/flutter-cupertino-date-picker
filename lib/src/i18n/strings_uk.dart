@@ -34,7 +34,20 @@ class _StringsUk extends _StringsI18n {
 
   @override
   List<String> getMonthsShort() {
-    return null;
+    return [
+      "Січ",
+      "Лют",
+      "Бер",
+      "Кві",
+      "Тра",
+      "Чер",
+      "Лип",
+      "Сер",
+      "Вер",
+      "Жов",
+      "Лис",
+      "Гру",
+    ];
   }
 
   @override

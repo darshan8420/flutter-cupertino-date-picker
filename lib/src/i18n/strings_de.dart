@@ -60,7 +60,19 @@ class _StringsDe extends _StringsI18n {
 
   @override
   List<String> getMonthsShort() {
-    // TODO: implement getMonthsShort
-    return null;
+    return [
+      "Jan",
+      "Feb",
+      "Mär",
+      "Apr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Okt",
+      "Nov",
+      "Dez",
+    ];
   }
 }

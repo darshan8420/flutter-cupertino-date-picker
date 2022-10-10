@@ -60,7 +60,19 @@ class _StringsBn extends _StringsI18n {
 
   @override
   List<String> getMonthsShort() {
-    // TODO: implement getMonthsShort
-    return null;
+    return [
+      "জানু",
+      "ফেব্রু",
+      "মার্চ",
+      "এপ্রিল",
+      "মে",
+      "জুন",
+      "জুলাই",
+      "অগাস্ট",
+      "সেপ্টে",
+      "অক্টো",
+      "নভে",
+      "ডিসে"
+    ];
   }
 }

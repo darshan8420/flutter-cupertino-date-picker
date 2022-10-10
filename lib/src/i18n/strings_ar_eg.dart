@@ -34,7 +34,20 @@ class _StringsArEg extends _StringsI18n {
 
   @override
   List<String> getMonthsShort() {
-    return null;
+    return [
+      "يناير",
+      "فبراير",
+      "مارس",
+      "أبريل",
+      "مايو",
+      "يونيو",
+      "يوليو",
+      "أغسطس",
+      "سبتمبر",
+      "أكتوبر",
+      "نوفمبر",
+      "ديسمبر"
+    ];
   }
 
   @override

@@ -47,12 +47,32 @@ class _StringsRo extends _StringsI18n {
 
   @override
   List<String> getWeeksShort() {
-    return null;
+    return [
+      "L",
+      "Ma",
+      "Mi",
+      "J",
+      "V",
+      "S",
+      "D",
+    ];
   }
 
   @override
   List<String> getMonthsShort() {
-    // TODO: implement getMonthsShort
-    return null;
+    return [
+      "Ian",
+      "Feb",
+      "Mar",
+      "Apr",
+      "Mai",
+      "Iun",
+      "Iul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ];
   }
 }

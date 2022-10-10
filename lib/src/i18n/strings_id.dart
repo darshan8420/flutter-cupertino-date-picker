@@ -34,7 +34,20 @@ class _StringsId extends _StringsI18n {
 
   @override
   List<String> getMonthsShort() {
-    return null;
+    return [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'Mei',
+      'Jun',
+      'Jul',
+      'Agu',
+      'Sep',
+      'Okt',
+      'Nov',
+      'Des'
+    ];
   }
 
   @override

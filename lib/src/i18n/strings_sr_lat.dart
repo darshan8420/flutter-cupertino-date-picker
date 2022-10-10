@@ -34,7 +34,20 @@ class _StringsSrLatin extends _StringsI18n {
 
   @override
   List<String> getMonthsShort() {
-    return null;
+    return [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "Maj",
+      "Jun",
+      "Jul",
+      "Avg",
+      "Sep",
+      "Okt",
+      "Nov",
+      "Dec"
+    ];
   }
 
   @override

@@ -11,8 +11,8 @@ import '../i18n/date_picker_i18n.dart';
 class DatePickerTitleWidget extends StatelessWidget {
   DatePickerTitleWidget({
     Key? key,
-    this.pickerTheme,
-    this.locale,
+    required this.pickerTheme,
+    required this.locale,
     this.onCancel,
     required this.onConfirm,
   }) : super(key: key);

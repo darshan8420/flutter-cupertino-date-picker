@@ -60,7 +60,19 @@ class _StringsAr extends _StringsI18n {
 
   @override
   List<String> getMonthsShort() {
-    // TODO: implement getMonthsShort
-    return null;
+    return [
+      "كانون الثاني",
+      "شباط",
+      "آذار",
+      "نيسان",
+      "أيار",
+      "حزيران",
+      "تموز",
+      "آب",
+      "أيلول",
+      "تشرين الأول",
+      "تشرين الثاني",
+      "كانون الأول"
+    ];
   }
 }

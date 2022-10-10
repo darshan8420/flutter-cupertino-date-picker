@@ -298,7 +298,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
 
   _calculateMinuteChildCount(List<int> valueRange, int divider) {
     if (divider == 0) {
-      debugPrint("Cant devide by 0");
+      debugPrint("Cant divide by 0");
       return (valueRange.last - valueRange.first + 1);
     }
 
@@ -313,8 +313,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
       alignment: Alignment.center,
       child: Text(
         DateTimeFormatter.formatDate(dateTime, format, widget.locale),
-        style:
-            widget.pickerTheme.itemTextStyle ?? DATETIME_PICKER_ITEM_TEXT_STYLE,
+        style: widget.pickerTheme.itemTextStyle,
       ),
     );
   }

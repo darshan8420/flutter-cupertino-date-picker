@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 
 class DatePickerBottomSheet extends StatefulWidget {
@@ -59,7 +58,7 @@ class _DatePickerBottomSheetState extends State<DatePickerBottomSheet> {
     });
 
     TextStyle hintTextStyle =
-        Theme.of(context).textTheme.subhead.apply(color: Color(0xFF999999));
+        Theme.of(context).textTheme.subtitle1!.apply(color: Color(0xFF999999));
     return Scaffold(
       appBar: AppBar(title: Text('DatePicker Bottom Sheet')),
       body: Container(
@@ -76,7 +75,7 @@ class _DatePickerBottomSheetState extends State<DatePickerBottomSheet> {
                     child: Text('min DateTime:', style: hintTextStyle),
                   ),
                   Text(MIN_DATETIME,
-                      style: Theme.of(context).textTheme.subhead),
+                      style: Theme.of(context).textTheme.subtitle1),
                 ],
               ),
             ),
@@ -90,7 +89,7 @@ class _DatePickerBottomSheetState extends State<DatePickerBottomSheet> {
                       width: 115.0,
                       child: Text('max DateTime:', style: hintTextStyle)),
                   Text(MAX_DATETIME,
-                      style: Theme.of(context).textTheme.subhead),
+                      style: Theme.of(context).textTheme.subtitle1),
                 ],
               ),
             ),
@@ -104,7 +103,7 @@ class _DatePickerBottomSheetState extends State<DatePickerBottomSheet> {
                       width: 115.0,
                       child: Text('init DateTime:', style: hintTextStyle)),
                   Text(INIT_DATETIME,
-                      style: Theme.of(context).textTheme.subhead),
+                      style: Theme.of(context).textTheme.subtitle1),
                 ],
               ),
             ),
@@ -117,7 +116,7 @@ class _DatePickerBottomSheetState extends State<DatePickerBottomSheet> {
                   value: _showTitle,
                   onChanged: (value) {
                     setState(() {
-                      _showTitle = value;
+                      _showTitle = value ?? false;
                     });
                   },
                 )
@@ -158,12 +157,12 @@ class _DatePickerBottomSheetState extends State<DatePickerBottomSheet> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text('Selected Date:',
-                      style: Theme.of(context).textTheme.subhead),
+                      style: Theme.of(context).textTheme.subtitle1),
                   Container(
                     padding: EdgeInsets.only(left: 12.0),
                     child: Text(
                       '${_dateTime.year}-${_dateTime.month.toString().padLeft(2, '0')}-${_dateTime.day.toString().padLeft(2, '0')}',
-                      style: Theme.of(context).textTheme.title,
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                   ),
                 ],

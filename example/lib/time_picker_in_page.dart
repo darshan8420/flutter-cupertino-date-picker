@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 
 ///
 /// @author dylan wu
 /// @since 2019-05-10
 class TimePickerInPage extends StatefulWidget {
-  TimePickerInPage({Key key}) : super(key: key);
+  TimePickerInPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _TimePickerInPageState();
@@ -18,7 +17,7 @@ const String INIT_DATETIME = '2019-05-17 18:13:15';
 const String DATE_FORMAT = 'HH时:mm分:s';
 
 class _TimePickerInPageState extends State<TimePickerInPage> {
-  DateTime _dateTime;
+  late DateTime _dateTime;
 
   @override
   void initState() {
@@ -29,7 +28,7 @@ class _TimePickerInPageState extends State<TimePickerInPage> {
   @override
   Widget build(BuildContext context) {
     TextStyle hintTextStyle =
-        Theme.of(context).textTheme.subhead.apply(color: Color(0xFF999999));
+        Theme.of(context).textTheme.subtitle1!.apply(color: Color(0xFF999999));
     return Scaffold(
       appBar: AppBar(title: Text("TimePicker In Page")),
       body: Container(
@@ -47,7 +46,7 @@ class _TimePickerInPageState extends State<TimePickerInPage> {
                     child: Text('min DateTime:', style: hintTextStyle),
                   ),
                   Text(MIN_DATETIME.substring(11),
-                      style: Theme.of(context).textTheme.subhead),
+                      style: Theme.of(context).textTheme.subtitle1),
                 ],
               ),
             ),
@@ -62,7 +61,7 @@ class _TimePickerInPageState extends State<TimePickerInPage> {
                     child: Text('max DateTime:', style: hintTextStyle),
                   ),
                   Text(MAX_DATETIME.substring(11),
-                      style: Theme.of(context).textTheme.subhead),
+                      style: Theme.of(context).textTheme.subtitle1),
                 ],
               ),
             ),
@@ -77,7 +76,7 @@ class _TimePickerInPageState extends State<TimePickerInPage> {
                     child: Text('init DateTime:', style: hintTextStyle),
                   ),
                   Text(INIT_DATETIME.substring(11),
-                      style: Theme.of(context).textTheme.subhead),
+                      style: Theme.of(context).textTheme.subtitle1),
                 ],
               ),
             ),
@@ -91,7 +90,8 @@ class _TimePickerInPageState extends State<TimePickerInPage> {
                     width: 115.0,
                     child: Text('Date Format:', style: hintTextStyle),
                   ),
-                  Text(DATE_FORMAT, style: Theme.of(context).textTheme.subhead),
+                  Text(DATE_FORMAT,
+                      style: Theme.of(context).textTheme.subtitle1),
                 ],
               ),
             ),
@@ -120,14 +120,14 @@ class _TimePickerInPageState extends State<TimePickerInPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text('Selected Time:',
-                    style: Theme.of(context).textTheme.subhead),
+                    style: Theme.of(context).textTheme.subtitle1),
                 Container(
                   padding: EdgeInsets.only(left: 12.0),
                   child: Text(
                     _dateTime != null
                         ? '${_dateTime.hour.toString().padLeft(2, '0')}:${_dateTime.minute.toString().padLeft(2, '0')}:${_dateTime.second.toString().padLeft(2, '0')}'
                         : '',
-                    style: Theme.of(context).textTheme.title,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
               ],

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 
 class DateTimePickerBottomSheet extends StatefulWidget {
-  DateTimePickerBottomSheet({Key key}) : super(key: key);
+  DateTimePickerBottomSheet({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _DateTimePickerBottomSheetState();
@@ -22,7 +21,7 @@ class _DateTimePickerBottomSheetState extends State<DateTimePickerBottomSheet> {
   DateTimePickerLocale _locale = DateTimePickerLocale.zh_cn;
   List<DateTimePickerLocale> _locales = DateTimePickerLocale.values;
 
-  DateTime _dateTime;
+  late DateTime _dateTime;
 
   @override
   void initState() {
@@ -62,7 +61,7 @@ class _DateTimePickerBottomSheetState extends State<DateTimePickerBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> radios = List<Widget>();
+    List<Widget> radios = <Widget>[];
     _locales.forEach((locale) {
       radios.add(Container(
         margin: EdgeInsets.only(right: 8.0),
@@ -74,7 +73,7 @@ class _DateTimePickerBottomSheetState extends State<DateTimePickerBottomSheet> {
                 groupValue: _locale,
                 onChanged: (value) {
                   setState(() {
-                    _locale = value;
+                    _locale = value as DateTimePickerLocale;
                   });
                 }),
             Text(locale
@@ -86,7 +85,7 @@ class _DateTimePickerBottomSheetState extends State<DateTimePickerBottomSheet> {
     });
 
     TextStyle hintTextStyle =
-        Theme.of(context).textTheme.subhead.apply(color: Color(0xFF999999));
+        Theme.of(context).textTheme.subtitle1!.apply(color: Color(0xFF999999));
     return Scaffold(
       appBar: AppBar(title: Text('DateTimePicker Bottom Sheet')),
       body: Container(
@@ -103,7 +102,7 @@ class _DateTimePickerBottomSheetState extends State<DateTimePickerBottomSheet> {
                     child: Text('min DateTime:', style: hintTextStyle),
                   ),
                   Text(MIN_DATETIME,
-                      style: Theme.of(context).textTheme.subhead),
+                      style: Theme.of(context).textTheme.subtitle1),
                 ],
               ),
             ),
@@ -118,7 +117,7 @@ class _DateTimePickerBottomSheetState extends State<DateTimePickerBottomSheet> {
                     child: Text('max DateTime:', style: hintTextStyle),
                   ),
                   Text(MAX_DATETIME,
-                      style: Theme.of(context).textTheme.subhead),
+                      style: Theme.of(context).textTheme.subtitle1),
                 ],
               ),
             ),
@@ -133,7 +132,7 @@ class _DateTimePickerBottomSheetState extends State<DateTimePickerBottomSheet> {
                     child: Text('init DateTime:', style: hintTextStyle),
                   ),
                   Text(INIT_DATETIME,
-                      style: Theme.of(context).textTheme.subhead),
+                      style: Theme.of(context).textTheme.subtitle1),
                 ],
               ),
             ),
@@ -149,7 +148,7 @@ class _DateTimePickerBottomSheetState extends State<DateTimePickerBottomSheet> {
                       value: _showTitle,
                       onChanged: (value) {
                         setState(() {
-                          _showTitle = value;
+                          _showTitle = value ?? false;
                         });
                       })
                 ],
@@ -188,12 +187,12 @@ class _DateTimePickerBottomSheetState extends State<DateTimePickerBottomSheet> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text('Selected DateTime:',
-                      style: Theme.of(context).textTheme.subhead),
+                      style: Theme.of(context).textTheme.subtitle1),
                   Container(
                     padding: EdgeInsets.only(top: 4.0),
                     child: Text(
                       '${_dateTime.year}-${_dateTime.month.toString().padLeft(2, '0')}-${_dateTime.day.toString().padLeft(2, '0')} ${_dateTime.hour.toString().padLeft(2, '0')}:${_dateTime.minute.toString().padLeft(2, '0')}:${_dateTime.second.toString().padLeft(2, '0')}',
-                      style: Theme.of(context).textTheme.title,
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                   ),
                 ],

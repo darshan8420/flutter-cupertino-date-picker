@@ -1,6 +1,9 @@
 name: example
 description: A new Flutter application.
 
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
 dependencies:
   flutter:
     sdk: flutter
@@ -21,7 +24,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

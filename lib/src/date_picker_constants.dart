@@ -2,7 +2,7 @@
 typedef DateValueCallback(DateTime dateTime, List<int> selectedIndex);
 
 /// Pressed cancel callback.
-typedef DateVoidCallback();
+typedef DateVoidCallback = void Function();
 
 /// Default value of minimum datetime.
 const String DATE_PICKER_MIN_DATETIME = "1900-01-01 00:00:00";

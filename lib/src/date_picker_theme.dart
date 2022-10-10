@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 /// Default value of DatePicker's background color.
 const DATETIME_PICKER_BACKGROUND_COLOR = Colors.white;
@@ -38,8 +38,8 @@ class DateTimePickerTheme with Diagnosticable {
   /// [itemTextStyle] The value of DatePicker's column [TextStyle].
   const DateTimePickerTheme({
     this.backgroundColor: DATETIME_PICKER_BACKGROUND_COLOR,
-    this.cancelTextStyle,
-    this.confirmTextStyle,
+    this.cancelTextStyle = DATETIME_PICKER_ITEM_TEXT_STYLE,
+    this.confirmTextStyle = DATETIME_PICKER_ITEM_TEXT_STYLE,
     this.cancel,
     this.confirm,
     this.title,
@@ -56,19 +56,19 @@ class DateTimePickerTheme with Diagnosticable {
   final Color backgroundColor;
 
   /// Default cancel widget's [TextStyle].
-  final TextStyle cancelTextStyle;
+  final TextStyle? cancelTextStyle;
 
   /// Default confirm widget's [TextStyle].
-  final TextStyle confirmTextStyle;
+  final TextStyle? confirmTextStyle;
 
   /// Custom cancel [Widget].
-  final Widget cancel;
+  final Widget? cancel;
 
   /// Custom confirm [Widget].
-  final Widget confirm;
+  final Widget? confirm;
 
   /// Custom title [Widget]. If specify a title widget, the cancel and confirm widgets will not display.
-  final Widget title;
+  final Widget? title;
 
   /// Whether display title widget or not. If set false, the default cancel and confirm widgets will not display, but the custom title widget will display if had specified one custom title widget.
   final bool showTitle;

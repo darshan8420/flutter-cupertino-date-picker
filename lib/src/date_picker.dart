@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'date_picker_theme.dart';
 import 'date_picker_constants.dart';
+import 'date_picker_theme.dart';
 import 'date_time_formatter.dart';
 import 'i18n/date_picker_i18n.dart';
 import 'widget/date_picker_widget.dart';
@@ -40,35 +39,22 @@ class DatePicker {
   /// onConfirm: [DateValueCallback] pressed title confirm widget event
   static void showDatePicker(
     BuildContext context, {
-    DateTime minDateTime,
-    DateTime maxDateTime,
-    DateTime initialDateTime,
-    String dateFormat,
+    DateTime? minDateTime,
+    DateTime? maxDateTime,
+    DateTime? initialDateTime,
+    required String dateFormat,
     DateTimePickerLocale locale: DATETIME_PICKER_LOCALE_DEFAULT,
     DateTimePickerMode pickerMode: DateTimePickerMode.date,
     DateTimePickerTheme pickerTheme: DateTimePickerTheme.Default,
-    DateVoidCallback onCancel,
-    DateVoidCallback onClose,
-    DateValueCallback onChange,
-    DateValueCallback onConfirm,
+    DateVoidCallback? onCancel,
+    DateVoidCallback? onClose,
+    DateValueCallback? onChange,
+    DateValueCallback? onConfirm,
     int minuteDivider = 1,
     bool onMonthChangeStartWithFirstDate = false,
   }) {
-    // handle the range of datetime
-    if (minDateTime == null) {
-      minDateTime = DateTime.parse(DATE_PICKER_MIN_DATETIME);
-    }
-    if (maxDateTime == null) {
-      maxDateTime = DateTime.parse(DATE_PICKER_MAX_DATETIME);
-    }
-
-    // handle initial DateTime
-    if (initialDateTime == null) {
-      initialDateTime = DateTime.now();
-    }
-
     // Set value of date format
-    if (dateFormat != null && dateFormat.length > 0) {
+    if (dateFormat.length > 0) {
       // Check whether date format is legal or not
       if (DateTimeFormatter.isDayFormat(dateFormat)) {
         if (pickerMode == DateTimePickerMode.time) {
@@ -90,9 +76,9 @@ class DatePicker {
       context,
       new _DatePickerRoute(
         onMonthChangeStartWithFirstDate: onMonthChangeStartWithFirstDate,
-        minDateTime: minDateTime,
-        maxDateTime: maxDateTime,
-        initialDateTime: initialDateTime,
+        minDateTime: minDateTime ?? DateTime.parse(DATE_PICKER_MIN_DATETIME),
+        maxDateTime: maxDateTime ?? DateTime.parse(DATE_PICKER_MAX_DATETIME),
+        initialDateTime: initialDateTime ?? DateTime.now(),
         dateFormat: dateFormat,
         locale: locale,
         pickerMode: pickerMode,
@@ -105,27 +91,27 @@ class DatePicker {
             MaterialLocalizations.of(context).modalBarrierDismissLabel,
         minuteDivider: minuteDivider,
       ),
-    ).whenComplete(onClose ?? () => {});
+    ).whenComplete(onClose ?? () {});
   }
 }
 
 class _DatePickerRoute<T> extends PopupRoute<T> {
   _DatePickerRoute({
-    this.onMonthChangeStartWithFirstDate,
-    this.minDateTime,
-    this.maxDateTime,
-    this.initialDateTime,
-    this.dateFormat,
-    this.locale,
-    this.pickerMode,
-    this.pickerTheme,
+    required this.onMonthChangeStartWithFirstDate,
+    required this.minDateTime,
+    required this.maxDateTime,
+    required this.initialDateTime,
+    required this.dateFormat,
+    required this.locale,
+    required this.pickerMode,
+    required this.pickerTheme,
     this.onCancel,
     this.onChange,
     this.onConfirm,
-    this.theme,
-    this.barrierLabel,
-    this.minuteDivider,
-    RouteSettings settings,
+    required this.theme,
+    required this.barrierLabel,
+    required this.minuteDivider,
+    RouteSettings? settings,
   }) : super(settings: settings);
 
   final DateTime minDateTime, maxDateTime, initialDateTime;
@@ -133,9 +119,9 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
   final DateTimePickerLocale locale;
   final DateTimePickerMode pickerMode;
   final DateTimePickerTheme pickerTheme;
-  final VoidCallback onCancel;
-  final DateValueCallback onChange;
-  final DateValueCallback onConfirm;
+  final VoidCallback? onCancel;
+  final DateValueCallback? onChange;
+  final DateValueCallback? onConfirm;
   final int minuteDivider;
   final bool onMonthChangeStartWithFirstDate;
 
@@ -153,14 +139,13 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
   @override
   Color get barrierColor => Colors.black54;
 
-  AnimationController _animationController;
+  AnimationController? _animationController;
 
   @override
   AnimationController createAnimationController() {
     assert(_animationController == null);
-    _animationController =
-        BottomSheet.createAnimationController(navigator.overlay);
-    return _animationController;
+
+    return BottomSheet.createAnimationController(navigator!.overlay!);
   }
 
   @override
@@ -177,9 +162,7 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
       child: _DatePickerComponent(route: this, pickerHeight: height),
     );
 
-    if (theme != null) {
-      bottomSheet = new Theme(data: theme, child: bottomSheet);
-    }
+    bottomSheet = new Theme(data: theme, child: bottomSheet);
     return bottomSheet;
   }
 }
@@ -188,7 +171,7 @@ class _DatePickerComponent extends StatelessWidget {
   final _DatePickerRoute route;
   final double _pickerHeight;
 
-  _DatePickerComponent({Key key, @required this.route, @required pickerHeight})
+  _DatePickerComponent({required this.route, required pickerHeight})
       : this._pickerHeight = pickerHeight;
 
   @override
@@ -232,32 +215,34 @@ class _DatePickerComponent extends StatelessWidget {
           dateFormat: route.dateFormat,
           locale: route.locale,
           pickerTheme: route.pickerTheme,
-          onCancel: route.onCancel,
-          onChange: route.onChange,
-          onConfirm: route.onConfirm,
+          onCancel: route.onCancel ?? () {},
+          onChange: route.onChange ?? (dateTime, List<int> index) {},
+          onConfirm: route.onConfirm ?? (dateTime, List<int> index) {},
           minuteDivider: route.minuteDivider,
         );
         break;
     }
-    return new GestureDetector(
-      child: new AnimatedBuilder(
-        animation: route.animation,
-        builder: (BuildContext context, Widget child) {
-          return new ClipRect(
-            child: new CustomSingleChildLayout(
-              delegate: new _BottomPickerLayout(route.animation.value,
-                  contentHeight: _pickerHeight),
-              child: pickerWidget,
+    return GestureDetector(
+      child: AnimatedBuilder(
+        animation: route.animation ?? kAlwaysDismissedAnimation,
+        builder: (BuildContext context, Widget? child) {
+          return ClipRect(
+            child: CustomSingleChildLayout(
+              delegate: _BottomPickerLayout(
+                route.animation?.value ?? 0.0,
+                contentHeight: _pickerHeight,
+              ),
             ),
           );
         },
+        child: pickerWidget,
       ),
     );
   }
 }
 
 class _BottomPickerLayout extends SingleChildLayoutDelegate {
-  _BottomPickerLayout(this.progress, {this.contentHeight});
+  _BottomPickerLayout(this.progress, {required this.contentHeight});
 
   final double progress;
   final double contentHeight;

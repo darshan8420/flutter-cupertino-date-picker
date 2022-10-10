@@ -1,11 +1,11 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-import '../date_time_formatter.dart';
-import '../date_picker_theme.dart';
 import '../date_picker_constants.dart';
+import '../date_picker_theme.dart';
+import '../date_time_formatter.dart';
 import '../i18n/date_picker_i18n.dart';
 import 'date_picker_title_widget.dart';
 
@@ -15,7 +15,7 @@ import 'date_picker_title_widget.dart';
 /// @since 2019-05-10
 class TimePickerWidget extends StatefulWidget {
   TimePickerWidget({
-    Key key,
+    Key? key,
     this.minDateTime,
     this.maxDateTime,
     this.initDateTime,
@@ -32,38 +32,43 @@ class TimePickerWidget extends StatefulWidget {
     assert(minTime.compareTo(maxTime) < 0);
   }
 
-  final DateTime minDateTime, maxDateTime, initDateTime;
+  final DateTime? minDateTime, maxDateTime, initDateTime;
   final String dateFormat;
   final DateTimePickerLocale locale;
   final DateTimePickerTheme pickerTheme;
-  final DateVoidCallback onCancel;
-  final DateValueCallback onChange, onConfirm;
+  final DateVoidCallback? onCancel;
+  final DateValueCallback? onChange, onConfirm;
   final int minuteDivider;
 
   @override
   State<StatefulWidget> createState() => _TimePickerWidgetState(
-      this.minDateTime,
-      this.maxDateTime,
-      this.initDateTime,
-      this.minuteDivider);
+        this.minDateTime ?? DateTime.parse(DATE_PICKER_MIN_DATETIME),
+        this.maxDateTime ?? DateTime.parse(DATE_PICKER_MAX_DATETIME),
+        this.initDateTime ?? DateTime.now(),
+        this.minuteDivider,
+      );
 }
 
 class _TimePickerWidgetState extends State<TimePickerWidget> {
-  DateTime _minTime, _maxTime;
-  int _currHour, _currMinute, _currSecond;
-  int _minuteDivider;
-  List<int> _hourRange, _minuteRange, _secondRange;
-  FixedExtentScrollController _hourScrollCtrl,
+  late DateTime _minTime, _maxTime;
+  late int _currHour, _currMinute, _currSecond;
+  late int _minuteDivider;
+  late List<int> _hourRange, _minuteRange, _secondRange;
+  late FixedExtentScrollController _hourScrollCtrl,
       _minuteScrollCtrl,
       _secondScrollCtrl;
 
-  Map<String, FixedExtentScrollController> _scrollCtrlMap;
-  Map<String, List<int>> _valueRangeMap;
+  late Map<String, FixedExtentScrollController> _scrollCtrlMap;
+  late Map<String, List<int>> _valueRangeMap;
 
   bool _isChangeTimeRange = false;
 
-  _TimePickerWidgetState(DateTime minTime, DateTime maxTime, DateTime initTime,
-      int minuteDivider) {
+  _TimePickerWidgetState(
+    DateTime? minTime,
+    DateTime? maxTime,
+    DateTime? initTime,
+    int minuteDivider,
+  ) {
     if (minTime == null) {
       minTime = DateTime.parse(DATE_PICKER_MIN_DATETIME);
     }
@@ -140,7 +145,7 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
   /// pressed cancel widget
   void _onPressedCancel() {
     if (widget.onCancel != null) {
-      widget.onCancel();
+      widget.onCancel!();
     }
     Navigator.pop(context);
   }
@@ -151,7 +156,7 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
       DateTime now = DateTime.now();
       DateTime dateTime = DateTime(
           now.year, now.month, now.day, _currHour, _currMinute, _currSecond);
-      widget.onConfirm(dateTime, _calcSelectIndexList());
+      widget.onConfirm!(dateTime, _calcSelectIndexList());
     }
     Navigator.pop(context);
   }
@@ -162,37 +167,25 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
       DateTime now = DateTime.now();
       DateTime dateTime = DateTime(
           now.year, now.month, now.day, _currHour, _currMinute, _currSecond);
-      widget.onChange(dateTime, _calcSelectIndexList());
+      widget.onChange!(dateTime, _calcSelectIndexList());
     }
   }
 
   /// find scroll controller by specified format
   FixedExtentScrollController _findScrollCtrl(String format) {
-    FixedExtentScrollController scrollCtrl;
-    _scrollCtrlMap.forEach((key, value) {
-      if (format.contains(key)) {
-        scrollCtrl = value;
-      }
-    });
-    return scrollCtrl;
+    return _scrollCtrlMap[format] ?? _hourScrollCtrl;
   }
 
   /// find item value range by specified format
   List<int> _findPickerItemRange(String format) {
-    List<int> valueRange;
-    _valueRangeMap.forEach((key, value) {
-      if (format.contains(key)) {
-        valueRange = value;
-      }
-    });
-    return valueRange;
+    return _valueRangeMap[format] ?? _hourRange;
   }
 
   /// render the picker widget of year、month and day
   Widget _renderDatePickerWidget() {
-    List<Widget> pickers = List<Widget>();
+    List<Widget> pickers = <Widget>[];
     List<String> formatArr =
-        DateTimeFormatter.splitDateFormat(widget.dateFormat);
+        DateTimeFormatter.splitDateFormat(widget.dateFormat, mode: null);
     formatArr.forEach((format) {
       List<int> valueRange = _findPickerItemRange(format);
 
@@ -218,11 +211,11 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
   }
 
   Widget _renderDatePickerColumnComponent({
-    @required FixedExtentScrollController scrollCtrl,
-    @required List<int> valueRange,
-    @required String format,
-    @required ValueChanged<int> valueChanged,
-    int minuteDivider,
+    required FixedExtentScrollController scrollCtrl,
+    required List<int> valueRange,
+    required String format,
+    required ValueChanged<int> valueChanged,
+    int minuteDivider = 1,
   }) {
     return Expanded(
       flex: 1,
@@ -254,7 +247,7 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
 
   _calculateMinuteChildCount(List<int> valueRange, int divider) {
     if (divider == 0) {
-      print("Cant devide by 0");
+      print("Cant divide by 0");
       return (valueRange.last - valueRange.first + 1);
     }
 
@@ -267,8 +260,7 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
       alignment: Alignment.center,
       child: Text(
         DateTimeFormatter.formatDateTime(value, format, widget.locale),
-        style:
-            widget.pickerTheme.itemTextStyle ?? DATETIME_PICKER_ITEM_TEXT_STYLE,
+        style: widget.pickerTheme.itemTextStyle,
       ),
     );
   }

@@ -10,21 +10,21 @@ import '../i18n/date_picker_i18n.dart';
 /// @since 2019-05-16
 class DatePickerTitleWidget extends StatelessWidget {
   DatePickerTitleWidget({
-    Key key,
+    Key? key,
     this.pickerTheme,
     this.locale,
-    @required this.onCancel,
-    @required this.onConfirm,
+    this.onCancel,
+    required this.onConfirm,
   }) : super(key: key);
 
   final DateTimePickerTheme pickerTheme;
   final DateTimePickerLocale locale;
-  final DateVoidCallback onCancel, onConfirm;
+  final DateVoidCallback? onCancel, onConfirm;
 
   @override
   Widget build(BuildContext context) {
     if (pickerTheme.title != null) {
-      return pickerTheme.title;
+      return pickerTheme.title!;
     }
     return Container(
       height: pickerTheme.titleHeight,
@@ -48,7 +48,7 @@ class DatePickerTitleWidget extends StatelessWidget {
       }
     }
 
-    Widget cancelWidget = pickerTheme.cancel;
+    Widget? cancelWidget = pickerTheme.cancel;
     if (cancelWidget == null) {
       TextStyle textStyle = pickerTheme.cancelTextStyle ??
           TextStyle(
@@ -63,10 +63,16 @@ class DatePickerTitleWidget extends StatelessWidget {
 
     return Container(
       height: pickerTheme.titleHeight,
-      child: FlatButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      child: TextButton(
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        ),
         child: cancelWidget,
-        onPressed: () => this.onCancel(),
+        onPressed: () {
+          if (onCancel != null) {
+            onCancel!();
+          }
+        },
       ),
     );
   }
@@ -80,7 +86,8 @@ class DatePickerTitleWidget extends StatelessWidget {
       }
     }
 
-    Widget confirmWidget = pickerTheme.confirm;
+    Widget? confirmWidget = pickerTheme.confirm;
+
     if (confirmWidget == null) {
       TextStyle textStyle = pickerTheme.confirmTextStyle ??
           TextStyle(
@@ -95,10 +102,16 @@ class DatePickerTitleWidget extends StatelessWidget {
 
     return Container(
       height: pickerTheme.titleHeight,
-      child: FlatButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      child: TextButton(
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        ),
         child: confirmWidget,
-        onPressed: () => this.onConfirm(),
+        onPressed: () {
+          if (onConfirm != null) {
+            onConfirm!();
+          }
+        },
       ),
     );
   }

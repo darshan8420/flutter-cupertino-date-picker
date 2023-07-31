@@ -84,8 +84,10 @@ class _DateTimePickerBottomSheetState extends State<DateTimePickerBottomSheet> {
       ));
     });
 
-    TextStyle hintTextStyle =
-        Theme.of(context).textTheme.subtitle1!.apply(color: Color(0xFF999999));
+    TextStyle hintTextStyle = Theme.of(context)
+        .textTheme
+        .titleMedium!
+        .apply(color: Color(0xFF999999));
     return Scaffold(
       appBar: AppBar(title: Text('DateTimePicker Bottom Sheet')),
       body: Container(
@@ -102,7 +104,7 @@ class _DateTimePickerBottomSheetState extends State<DateTimePickerBottomSheet> {
                     child: Text('min DateTime:', style: hintTextStyle),
                   ),
                   Text(MIN_DATETIME,
-                      style: Theme.of(context).textTheme.subtitle1),
+                      style: Theme.of(context).textTheme.titleMedium),
                 ],
               ),
             ),
@@ -117,7 +119,7 @@ class _DateTimePickerBottomSheetState extends State<DateTimePickerBottomSheet> {
                     child: Text('max DateTime:', style: hintTextStyle),
                   ),
                   Text(MAX_DATETIME,
-                      style: Theme.of(context).textTheme.subtitle1),
+                      style: Theme.of(context).textTheme.titleMedium),
                 ],
               ),
             ),
@@ -132,7 +134,7 @@ class _DateTimePickerBottomSheetState extends State<DateTimePickerBottomSheet> {
                     child: Text('init DateTime:', style: hintTextStyle),
                   ),
                   Text(INIT_DATETIME,
-                      style: Theme.of(context).textTheme.subtitle1),
+                      style: Theme.of(context).textTheme.titleMedium),
                 ],
               ),
             ),
@@ -187,12 +189,12 @@ class _DateTimePickerBottomSheetState extends State<DateTimePickerBottomSheet> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text('Selected DateTime:',
-                      style: Theme.of(context).textTheme.subtitle1),
+                      style: Theme.of(context).textTheme.titleMedium),
                   Container(
                     padding: EdgeInsets.only(top: 4.0),
                     child: Text(
                       '${_dateTime.year}-${_dateTime.month.toString().padLeft(2, '0')}-${_dateTime.day.toString().padLeft(2, '0')} ${_dateTime.hour.toString().padLeft(2, '0')}:${_dateTime.minute.toString().padLeft(2, '0')}:${_dateTime.second.toString().padLeft(2, '0')}',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
                 ],
